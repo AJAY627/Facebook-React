@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import reducer from '../reducers';
 
-let store;
+let store; // jab ham galt code dal rahe hai na to error show nhi kr rha
 
 export function configureStore() {
   store = createStore(reducer, applyMiddleware(thunk, logger));
