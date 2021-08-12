@@ -3,10 +3,12 @@ import posts from './posts';
 import auth from './auth';
 import profile from './profile';
 import friends from './friends';
+import search from './friends';
 
 export default combineReducers({
   posts,
   auth,
   profile,
   friends,
+  search,
 });
