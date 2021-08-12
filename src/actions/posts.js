@@ -1,4 +1,5 @@
 import { UPDATE_POSTS } from './actionTypes';
+import { APIUrls } from '../helpers/urls';
 
 export function fetchPosts() {
   return (dispatch) => {

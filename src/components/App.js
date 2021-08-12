@@ -9,10 +9,21 @@ import {
 import PropTypes from 'prop-types';
 
 import { fetchPosts } from '../actions/posts';
-import { Home, Navbar, Page404, Login, Signup, Settings } from './';
+import {
+  Home,
+  Navbar,
+  Page404,
+  Login,
+  Signup,
+  Settings,
+  UserProfile,
+} from './';
 import jwtDecode from 'jwt-decode';
 import { authenticateUser } from '../actions/auth';
 import { getAuthTokenFromLocalStorage } from '../helpers/utils';
+//import { fetchUserProfile } from '../actions/profile';
+import { fetchUserFriends } from '../actions/friends';
+//import friends from '../reducers/friends';
 
 const PrivateRoute = (privateRouteProps) => {
   const { isLoggedin, path, component: Component } = privateRouteProps;
@@ -21,6 +32,9 @@ const PrivateRoute = (privateRouteProps) => {
     <Route
       path={path}
       render={(props) => {
+        console.log('props', props);
+        console.log('isLoggedin', isLoggedin);
+
         return isLoggedin ? (
           <Component {...props} />
         ) : (
@@ -39,8 +53,17 @@ const PrivateRoute = (privateRouteProps) => {
 };
 
 class App extends React.Component {
+  // constructor(props) {
+  //   super(props);
+  //   // this.emailInputRef = React.createRef();
+  //   //this.passwordInputRef = React.createRef();
+  //   this.state = {
+  //     user: '',
+  //   };
+  // }
   componentDidMount() {
     this.props.dispatch(fetchPosts());
+
     const token = getAuthTokenFromLocalStorage();
 
     if (token) {
@@ -52,13 +75,21 @@ class App extends React.Component {
           email: user.email,
           _id: user._id,
           name: user.name,
+          // console.log('user', user);
+          // this.setState({ user: user });
+          // this.props.dispatch(
+          //   authenticateUser({
+          //     email: user.email,
+          //     _id: user._id,
+          //     name: user.name,
         })
       );
+      this.props.dispatch(fetchUserFriends());
     }
   }
 
   render() {
-    const { posts, auth } = this.props;
+    const { posts, auth, friends } = this.props;
     return (
       <Router>
         <div>
@@ -69,14 +100,29 @@ class App extends React.Component {
               exact
               path="/"
               render={(props) => {
-                return <Home {...props} posts={posts} />;
+                return (
+                  <Home
+                    {...props}
+                    posts={posts}
+                    friends={friends}
+                    isLoggedin={auth.isLoggedin}
+                  />
+                );
               }}
             />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/signup" component={Signup} />
+            {/* exact */}
+            <Route path="/login" component={Login} />
+            <Route path="/signup" component={Signup} />
             <PrivateRoute
               path="/settings"
               component={Settings}
+              isLoggedin={auth.isLoggedin}
+            />
+            <PrivateRoute
+              // exact
+              path="/user/:userId"
+              component={UserProfile}
+              // profile={this.state}
               isLoggedin={auth.isLoggedin}
             />
             <Route component={Page404} />
@@ -91,6 +137,7 @@ function mapStateToProps(state) {
   return {
     posts: state.posts,
     auth: state.auth,
+    friends: state.friends,
   };
 }
 

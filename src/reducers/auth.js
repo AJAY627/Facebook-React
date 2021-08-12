@@ -8,8 +8,8 @@ import {
   SIGNUP_SUCCESS,
   SIGNUP_FAILED,
   CLEAR_AUTH_STATE,
-  EDIT_USER_FAILED,
   EDIT_USER_SUCCESSFUL,
+  EDIT_USER_FAILED,
 } from '../actions/actionTypes';
 
 const initialAuthState = {
