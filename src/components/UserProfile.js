@@ -131,7 +131,7 @@ class UserProfile extends Component {
       return <h1>Loading!</h1>;
     }
 
-    const isUserFriends = this.checkIfUserIsAFriend();
+    const isUserAFriend = this.checkIfUserIsAFriend();
     const { success, error, successMessage } = this.state;
 
     return (
@@ -154,7 +154,7 @@ class UserProfile extends Component {
         </div>
 
         <div className="btn-grp">
-          {!isUserFriends ? (
+          {!isUserAFriend ? (
             <button
               className="button save-btn"
               onClick={this.handleAddFriendClick}

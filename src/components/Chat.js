@@ -13,6 +13,7 @@ class Chat extends Component {
     };
     this.socket = io.connect('http://54.237.158.65:5000');
     this.userEmail = props.user.email;
+
     if (this.userEmail) {
       this.setupConnections();
     }
@@ -81,7 +82,7 @@ class Chat extends Component {
           {messages.map((message) => (
             <div
               className={
-                messages.self
+                message.self
                   ? 'chat-bubble self-chat'
                   : 'chat-bubble other-chat'
               }

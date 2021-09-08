@@ -44,7 +44,7 @@ class Settings extends Component {
         {error && <div className="alert error-dailog">{error}</div>}
         {error === false && (
           <div className="alert success-dailog">
-            SucessFully updated profile!
+            Successfully updated profile!
           </div>
         )}
         <div className="field">

@@ -34,7 +34,6 @@ const PrivateRoute = (privateRouteProps) => {
       render={(props) => {
         console.log('props', props);
         console.log('isLoggedin', isLoggedin);
-
         return isLoggedin ? (
           <Component {...props} />
         ) : (
@@ -144,4 +143,5 @@ function mapStateToProps(state) {
 App.propTypes = {
   posts: PropTypes.array.isRequired,
 };
+
 export default connect(mapStateToProps)(App);

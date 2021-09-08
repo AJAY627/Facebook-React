@@ -23,7 +23,6 @@ export default function posts(state = [], action) {
         return post;
       });
       return newPosts;
-
     case UPDATE_POST_LIKE:
       const updatedPosts = state.map((post) => {
         if (post._id === action.postId) {
@@ -36,7 +35,6 @@ export default function posts(state = [], action) {
         return post;
       });
       return updatedPosts;
-
     default:
       return state;
   }
